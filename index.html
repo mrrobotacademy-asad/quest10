@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة كودجي - أسئلة الدرس الثالث: أساسيات تقنية الواجهة الأمامية</title>
+    <style>
+        :root {
+            --bg-color: #0f0e17;
+            --card-bg: #161625;
+            --text-color: #fffffe;
+            --border-color: #2e2f42;
+            --accent-color: #6c5ce7;
+            --accent-glow: #a29bfe;
+            --success-color: #00b894;
+            --danger-color: #ff6b6b;
+            --warning-color: #fdcb6e;
+            --subtext-color: #a7a9be;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            direction: rtl;
+            padding-bottom: 50px;
+            line-height: 1.6;
+        }
+
+        /* ========== HEADER WITH LOGOS ========== */
+        header {
+            background: linear-gradient(180deg, rgba(108,92,231,0.15) 0%, rgba(15,14,23,0) 100%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 25px 20px;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logos-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-circle {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            overflow: hidden;
+            background: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+            color: var(--accent-glow);
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-text {
+            text-align: center;
+            flex: 1;
+        }
+
+        .platform-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .platform-tagline {
+            font-size: 1.05rem;
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .instructor-info {
+            font-size: 0.9rem;
+            color: var(--subtext-color);
+        }
+
+        .instructor-info span {
+            color: var(--warning-color);
+            font-weight: 700;
+        }
+
+        .header-badges {
+            max-width: 1000px;
+            margin: 15px auto 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(108,92,231,0.2);
+            color: var(--accent-glow);
+            border: 1px solid var(--accent-color);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        /* ========== CONTAINER & BANNERS ========== */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .lesson-banner {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .lesson-banner h1 {
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .lesson-banner p {
+            color: var(--subtext-color);
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #fff;
+            margin: 35px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .count-badge {
+            background: var(--accent-color);
+            color: #fff;
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        /* ========== QUESTION CARDS ========== */
+        .q-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .q-card:hover {
+            border-color: rgba(108,92,231,0.5);
+        }
+
+        .q-text {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .opt-item {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+
+        .btn-toggle {
+            background: rgba(108,92,231,0.15);
+            color: var(--accent-glow);
+            border: 1px solid var(--accent-color);
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-toggle:hover {
+            background: var(--accent-color);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(108,92,231,0.3);
+        }
+
+        .answer-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mcq-answer {
+            background: rgba(0,184,148,0.12);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .essay-answer {
+            background: rgba(108,92,231,0.1);
+            border: 1px solid var(--accent-color);
+            color: var(--text-color);
+        }
+
+        .essay-answer strong {
+            color: var(--accent-glow);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--subtext-color);
+            font-size: 0.9rem;
+        }
+
+        .footer-line {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .contact-badge {
+            background: rgba(253,203,110,0.15);
+            color: var(--warning-color);
+            border: 1px solid var(--warning-color);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; text-align: center; }
+            .platform-name { font-size: 1.3rem; }
+            .options-grid { grid-template-columns: 1fr; }
+            .q-card { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== HEADER WITH LOGOS ========== -->
+<header>
+    <div class="header-content">
+        <!-- Logo 1 -->
+        <div class="logos-container">
+            <div class="logo-circle">
+                <img src="logo1.png" alt="CodeG Logo" class="logo-img" onerror="this.style.display='none'; this.parentElement.innerHTML='CodeG';">
+            </div>
+        </div>
+
+        <!-- Text -->
+        <div class="header-text">
+            <div class="platform-name">🧠 منصة كودجي الرقمية</div>
+            <div class="platform-tagline">مراجعة الدرس الثالث: أساسيات تقنية الواجهة الأمامية</div>
+            <div class="instructor-info">
+                إعداد: مهندس أندرو مجدي | <span>01285529570</span>
+            </div>
+        </div>
+
+        <!-- Instructor Logo -->
+        <div class="logos-container">
+            <div class="logo-circle">
+                <img src="logo2.png" alt="Instructor" class="logo-img" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍🏫';">
+            </div>
+        </div>
+    </div>
+
+    <div class="header-badges">
+        <span class="badge">🌐 الوحدة الثالثة</span>
+        <span class="badge">💻 الدرس الثالث</span>
+        <span class="badge">🎓 البكالوريا الدولية</span>
+        <span class="badge">🇪🇬 مصر</span>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="lesson-banner">
+        <h1>💻 أساسيات تقنية الواجهة الأمامية (HTML / CSS / JavaScript)</h1>
+        <p>الصف الثاني الثانوي — منهج البرمجة والذكاء الاصطناعي (الكتاب المدرسي + كتاب التقييمات)</p>
+    </div>
+
+    <!-- ========== SECTION 1: MCQ ========== -->
+    <div class="section-title">
+        <span>📝 أولاً: أسئلة الاختيار من متعدد</span>
+        <span class="count-badge">20 سؤالاً</span>
+    </div>
+
+    <!-- Q1 -->
+    <div class="q-card">
+        <div class="q-text">1. ما اللغة الأساسية المُستخدمة لتحديد البنية والتركيب الهيكلي لصفحة الويب (مثل العناوين والفقرات والروابط)؟</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) CSS</div>
+            <div class="opt-item">ب) HTML</div>
+            <div class="opt-item">ج) JavaScript</div>
+            <div class="opt-item">د) SQL</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-1')">👁️ إظهار الإجابة</button>
+        <div id="mcq-1" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ب) HTML (تحدد البنية والتركيب الهيكلي لصفحة الويب)</div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="q-card">
+        <div class="q-text">2. ما التقنية المسؤولة عن تنسيق المظهر البصري لصفحة الويب مثل الألوان والخطوط والأبعاد والتخطيط؟</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) HTML</div>
+            <div class="opt-item">ب) CSS</div>
+            <div class="opt-item">ج) JavaScript</div>
+            <div class="opt-item">د) JSON</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-2')">👁️ إظهار الإجابة</button>
+        <div id="mcq-2" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ب) CSS (تُستخدم لتحديد المظهر البصري والتنسيق)</div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="q-card">
+        <div class="q-text">3. أي من اللغات التالية تُضيف السلوك التفاعلي والاستجابة الحية لأحداث المستخدم في الواجهة الأمامية؟</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) HTML</div>
+            <div class="opt-item">ب) CSS</div>
+            <div class="opt-item">ج) JavaScript</div>
+            <div class="opt-item">د) PHP</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-3')">👁️ إظهار الإجابة</button>
+        <div id="mcq-3" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ج) JavaScript (تُضيف السلوك التفاعلي والوظائف الديناميكية)</div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="q-card">
+        <div class="q-text">4. أي من عناصر HTML الداللية (Semantic HTML) يُستخدم لتحديد القسم الرئيسي والمركز لمحتوى الصفحة؟</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) &lt;header&gt;</div>
+            <div class="opt-item">ب) &lt;footer&gt;</div>
+            <div class="opt-item">ج) &lt;main&gt;</div>
+            <div class="opt-item">د) &lt;nav&gt;</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-4')">👁️ إظهار الإجابة</button>
+        <div id="mcq-4" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ج) &lt;main&gt; (يُستخدم دلالياً لتأطير المحتوى الرئيسي المباشر)</div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="q-card">
+        <div class="q-text">5. العنصر الدلالي &lt;nav&gt; في لغة HTML يُستخدم مخصصاً لـ:</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) رأس الصفحة العلوي</div>
+            <div class="opt-item">ب) تذييل أسفل الصفحة</div>
+            <div class="opt-item">ج) التنقل بين أجزاء وصفحات الموقع</div>
+            <div class="opt-item">د) المحتوى التفاعلي</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-5')">👁️ إظهار الإجابة</button>
+        <div id="mcq-5" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ج) التنقل بين أجزاء وصفحات الموقع</div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="q-card">
+        <div class="q-text">6. أي مما يلي لا يُعتبر من عناصر HTML الداللية (Semantic HTML)؟</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) &lt;header&gt;</div>
+            <div class="opt-item">ب) &lt;E-mail&gt;</div>
+            <div class="opt-item">ج) &lt;main&gt;</div>
+            <div class="opt-item">د) &lt;footer&gt;</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-6')">👁️ إظهار الإجابة</button>
+        <div id="mcq-6" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ب) &lt;E-mail&gt; (ليس وسماً رسمياً في HTML الداللية)</div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="q-card">
+        <div class="q-text">7. ما المقصود بمفهوم التصميم المتجاوب (Responsive Design) في تطبيقات الويب؟</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) جعل الصفحة تعمل فقط على الكمبيوتر</div>
+            <div class="opt-item">ب) ضبط وتكييف التخطيط تلقائياً وفقاً لأحجام الشاشات المختلفة</div>
+            <div class="opt-item">ج) استخدام JavaScript فقط للتفاعل</div>
+            <div class="opt-item">د) تحسين سرعة معالجة الخادم</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-7')">👁️ إظهار الإجابة</button>
+        <div id="mcq-7" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ب) ضبط وتكييف التخطيط تلقائياً وفقاً لأحجام الشاشات المختلفة</div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="q-card">
+        <div class="q-text">8. النهج التصميمي الذي يبدأ بإنشاء التخطيط للشاشات الصغيرة (مثل الهواتف) أولاً ثم التوسع للشاشات الكبيرة يُعرف بـ:</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) نهج الأولوية للجوال (Mobile-First)</div>
+            <div class="opt-item">ب) التصميم الخطائي</div>
+            <div class="opt-item">ج) التكييف المباشر</div>
+            <div class="opt-item">د) العرض المتوازي</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-8')">👁️ إظهار الإجابة</button>
+        <div id="mcq-8" class="answer-box mcq-answer">✔ الإجابة الصحيحة: أ) نهج الأولوية للجوال (Mobile-First)</div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="q-card">
+        <div class="q-text">9. أي من الخيارات التالية لا يُعد معلومة مناسبة إلدراجها أو فائدة لاستخدام HTML الداللية؟</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) مساعدة قارئات الشاشة لذوي الإعاقة</div>
+            <div class="opt-item">ب) مساعدة محركات البحث SEO في فهم البنية</div>
+            <div class="opt-item">ج) زيادة سرعة عرض الصفحة بالضرورة تلقائياً</div>
+            <div class="opt-item">د) توضيح معنى ووظيفة أجزاء الصفحة</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-9')">👁️ إظهار الإجابة</button>
+        <div id="mcq-9" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ج) زيادة سرعة عرض الصفحة بالضرورة تلقائياً (HTML الداللية توضح البنية والمعنى وليس السرعة الفيزيائية)</div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="q-card">
+        <div class="q-text">10. مكتبة JavaScript المخصصة لبناء واجهات المستخدم من مكونات قابلة لإعادة الاستخدام (Reusable Components) هي:</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) React</div>
+            <div class="opt-item">ب) HTML</div>
+            <div class="opt-item">ج) SQL</div>
+            <div class="opt-item">د) CSS</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-10')">👁️ إظهار الإجابة</button>
+        <div id="mcq-10" class="answer-box mcq-answer">✔ الإجابة الصحيحة: أ) React (مكتبة لبناء واجهات المستخدم بمكونات قابلة لإعادة الاستخدام)</div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="q-card">
+        <div class="q-text">11. إطار العمل المتقدم المبني على مكتبة React والذي يوفر التوجيه (Routing) وطرق عرض الصفحات والعمل على الخادم والعميل هو:</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) Next.js</div>
+            <div class="opt-item">ب) Vue</div>
+            <div class="opt-item">ج) CSS</div>
+            <div class="opt-item">د) HTML</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-11')">👁️ إظهار الإجابة</button>
+        <div id="mcq-11" class="answer-box mcq-answer">✔ الإجابة الصحيحة: أ) Next.js (إطار عمل مبني على React)</div>
+    </div>
+
+    <!-- Q12 -->
+    <div class="q-card">
+        <div class="q-text">12. أي من أطر العمل التالية يُعرف ببنيته البسيطة ويتيح بناء تطبيقات الويب تدريجياً بدءاً من ميزات صغيرة؟</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) Next.js</div>
+            <div class="opt-item">ب) Vue</div>
+            <div class="opt-item">ج) React</div>
+            <div class="opt-item">د) Docker</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-12')">👁️ إظهار الإجابة</button>
+        <div id="mcq-12" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ب) Vue (إطار عمل يتيح بناء التطبيقات تدريجياً)</div>
+    </div>
+
+    <!-- Q13 -->
+    <div class="q-card">
+        <div class="q-text">13. في تشبيه المبنى، إذا كانت HTML هي الهيكل العظمي للمبنى، فما التقنية التي تمثل الديكور الداخلي والتصميم؟</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) JavaScript</div>
+            <div class="opt-item">ب) CSS</div>
+            <div class="opt-item">ج) API</div>
+            <div class="opt-item">د) JSON</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-13')">👁️ إظهار الإجابة</button>
+        <div id="mcq-13" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ب) CSS</div>
+    </div>
+
+    <!-- Q14 -->
+    <div class="q-card">
+        <div class="q-text">14. في تشبيه المبنى، التقنية التي تمثل شبكات التوصيل التفاعلية والكهرباء والأنظمة الذكية داخل المبنى هي:</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) HTML</div>
+            <div class="opt-item">ب) CSS</div>
+            <div class="opt-item">ج) JavaScript</div>
+            <div class="opt-item">د) SQL</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-14')">👁️ إظهار الإجابة</button>
+        <div id="mcq-14" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ج) JavaScript</div>
+    </div>
+
+    <!-- Q15 -->
+    <div class="q-card">
+        <div class="q-text">15. العنصر &lt;footer&gt; في لغة HTML الداللية يُستخدم لتعريف:</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) المحتوى الرئيسي للمستند</div>
+            <div class="opt-item">ب) تذييل أسفل الصفحة (مثل حقوق النشر والروابط)</div>
+            <div class="opt-item">ج) رأس الصفحة العلوي</div>
+            <div class="opt-item">د) شريط التنقل الجانبي</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-15')">👁️ إظهار الإجابة</button>
+        <div id="mcq-15" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ب) تذييل أسفل الصفحة (عرض التذييل في أسفل الصفحة)</div>
+    </div>
+
+    <!-- Q16 -->
+    <div class="q-card">
+        <div class="q-text">16. ما المصطلح المعتمد لقياس الممارسات التي تجعل صفحة الويب أسهل في الفهرسة والظهور في نتائج البحث؟</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) SEO (تحسين محركات البحث)</div>
+            <div class="opt-item">ب) Accessibility (إمكانية الوصول)</div>
+            <div class="opt-item">ج) API Integration</div>
+            <div class="opt-item">د) TLS Encryption</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-16')">👁️ إظهار الإجابة</button>
+        <div id="mcq-16" class="answer-box mcq-answer">✔ الإجابة الصحيحة: أ) SEO (Search Engine Optimization)</div>
+    </div>
+
+    <!-- Q17 -->
+    <div class="q-card">
+        <div class="q-text">17. مفهوم إمكانية الوصول (Accessibility) يهدف بالأساس إلى:</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) تسريع استجابة الخادم</div>
+            <div class="opt-item">ب) تصميم المحتوى والواجهة ليتمكن ذوو القدرات والاحتياجات المختلفة (بمن فيهم ذوو الإعاقة) من استخدامها</div>
+            <div class="opt-item">ج) تقليل ألوان الصفحة لتوفير الطاقة</div>
+            <div class="opt-item">د) التشفير بالمفتاح العام</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-17')">👁️ إظهار الإجابة</button>
+        <div id="mcq-17" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ب) تصميم المحتوى والواجهة ليتمكن ذوو القدرات والاحتياجات المختلفة من استخدامها</div>
+    </div>
+
+    <!-- Q18 -->
+    <div class="q-card">
+        <div class="q-text">18. الخيار الذي يصف إطار العمل (Framework) بأفضل شكل في الواجهة الأمامية هو:</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) لغة لتحديد بنية صفحة الويب</div>
+            <div class="opt-item">ب) بنية تجعل تطوير تطبيقات الويب أكثر كفاءة وإعادة استخدام المكونات</div>
+            <div class="opt-item">ج) تقنية لتشفير البيانات وإرسالها بأمان</div>
+            <div class="opt-item">د) مفهوم تصميمي لدعم الشاشات</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-18')">👁️ إظهار الإجابة</button>
+        <div id="mcq-18" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ب) بنية تجعل تطوير تطبيقات الويب أكثر كفاءة وإعادة استخدام المكونات</div>
+    </div>
+
+    <!-- Q19 -->
+    <div class="q-card">
+        <div class="q-text">19. تحديث جزء صغير فقط من الشاشة (مثل زيادة عداد التسجيل أو الإعجابات) دون إعادة تحميل الصفحة بالكامل هي وظيفة:</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) HTML</div>
+            <div class="opt-item">ب) CSS</div>
+            <div class="opt-item">ج) JavaScript</div>
+            <div class="opt-item">د) SQL</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-19')">👁️ إظهار الإجابة</button>
+        <div id="mcq-19" class="answer-box mcq-answer">✔ الإجابة الصحيحة: ج) JavaScript</div>
+    </div>
+
+    <!-- Q20 -->
+    <div class="q-card">
+        <div class="q-text">20. الاختصارات الرسمية للتقنيات الثلاث (البنية، المظهر، السلوك) على التوالي هي:</div>
+        <div class="options-grid">
+            <div class="opt-item">أ) HTML / CSS / JavaScript</div>
+            <div class="opt-item">ب) HTTP / TLS / JSON</div>
+            <div class="opt-item">ج) API / SQL / React</div>
+            <div class="opt-item">د) SEO / XAI / Vue</div>
+        </div>
+        <button class="btn-toggle" onclick="toggleAnswer('mcq-20')">👁️ إظهار الإجابة</button>
+        <div id="mcq-20" class="answer-box mcq-answer">✔ الإجابة الصحيحة: أ) HTML (البنية) / CSS (المظهر) / JavaScript (السلوك)</div>
+    </div>
+
+    <!-- ========== SECTION 2: ESSAY ========== -->
+    <div class="section-title">
+        <span>✍️ ثانياً: الأسئلة المقالية والتحليلية</span>
+        <span class="count-badge">15 سؤالاً</span>
+    </div>
+
+    <!-- Essay 1 -->
+    <div class="q-card">
+        <div class="q-text">س1: اشرح بالتفصيل الأدوار المميزة والتكامل بين تقنيات الواجهة الأمامية الثلاث (HTML, CSS, JavaScript) في بناء صفحة ويب متكاملة.</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-1')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-1" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            • <strong>HTML (البنية):</strong> تحدد الهيكل والتركيب الأساسي للصفحة (مثل العناوين، الفقرات، الصور، الروابط، ونماذج الإدخال)، وتشبه الهيكل العظمي للمبنى.<br>
+            • <strong>CSS (المظهر):</strong> تُحدد المظهر البصري والتنسيق (الألوان، نوع الخطوط، الحجم، الأبعاد، وتوزيع العناصر والتخطيط المتجاوب)، وتشبه التصميم الداخلي والديكور.<br>
+            • <strong>JavaScript (السلوك):</strong> تضيف الوظائف السلوكية والتفاعلية الحية (مثل التحقق من مدخلات النموذج، تصفية البيانات فورياً، وتحديث أجزاء من الشاشة دون إعادة تحميل الصفحة)، وتشبه الأنظمة التفاعلية والكهرباء بالمبنى.
+        </div>
+    </div>
+
+    <!-- Essay 2 -->
+    <div class="q-card">
+        <div class="q-text">س2: لماذا تُعتبر لغة HTML الداللية (Semantic HTML) مهمة في بناء الواجهات الحديثة؟ اذكر مثالين لعناصر داللية مع توضيح وظيفتهما.</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-2')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-2" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            تُعتبر HTML الداللية مهمة لأنها تستخدم وسوماً تصف بوضوح معنى ووظيفة المحتوى الموجود بداخلها بدلاً من الوسوم العامة، مما يساعد المتصفحات والتقنيات المساعدة ومحركات البحث على فهم هيكل الصفحة.<br>
+            • <strong>أمثلة لعناصر داللية:</strong><br>
+            1. <code>&lt;header&gt;</code>: يُحدد رأس الصفحة أو رأس القسم العلوي.<br>
+            2. <code>&lt;main&gt;</code>: يُحدد المحتوى الرئيسي والمركز للصفحة.<br>
+            3. <code>&lt;nav&gt;</code>: يُحدد أجزاء وروابط التنقل الرئيسية بالصفحة.<br>
+            4. <code>&lt;footer&gt;</code>: يُحدد تذييل أسفل الصفحة (حقوق النشر والمعلومات التكميلية).
+        </div>
+    </div>
+
+    <!-- Essay 3 -->
+    <div class="q-card">
+        <div class="q-text">س3: وضح كيف يُسهم استخدام عناصر HTML الداللية في تحسين كل من: (أ) محركات البحث SEO، (ب) إمكانية الوصول Accessibility.</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-3')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-3" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            • <strong>أ) محركات البحث (SEO):</strong> تُمكن عناكب ومحركات البحث من قراءة وفهرسة أجزاء الموقع بفاعلية وفهم العناوين والمحتوى الرئيسي وتصنيف الصفحة بدقة في نتائج البحث.<br>
+            • <strong>ب) إمكانية الوصول (Accessibility):</strong> تُساعد برامج قارئ الشاشة (Screen Readers) الخاصة بالمستخدمين ذوي الإعاقة البصرية على التعرّف على بنية الصفحة وتخطي الروابط للوصول المباشر للمحتوى الرئيسي عبر الوسم <code>&lt;main&gt;</code>.
+        </div>
+    </div>
+
+    <!-- Essay 4 -->
+    <div class="q-card">
+        <div class="q-text">س4: عرف مفهوم التصميم المتجاوب (Responsive Design)، واشرح كيف يُحسن تجربة المستخدم عبر الشاشات المختلفة.</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-4')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-4" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            • <strong>التعريف:</strong> هو مفهوم تصميمي يتم فيه ضبط وتكييف تخطيط صفحة الويب وأبعاد عناصرها تلقائياً وفقاً لحجم الشاشة المستعملة (هاتف، لوحي، كمبيوتر).<br>
+            • <strong>تحسين تجربة المستخدم:</strong> يمنع الحاجة للتمرير الأفقي المجهد أو التكبير والتصغير اليدوي، ويعيد ترتيب العناصر والخطوط والصور لتناسب مساحة العرض المتاحة في الأجهزة المختلفة.
+        </div>
+    </div>
+
+    <!-- Essay 5 -->
+    <div class="q-card">
+        <div class="q-text">س5: اشرح نهج "الأولوية للجوال (Mobile-First)" في التصميم المتجاوب، ولماذا يُفضل البدء به أثناء تطوير تطبيقات الويب؟</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-5')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-5" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            • <strong>المفهوم:</strong> هو نهج يبدأ فيه المطور بتصميم الواجهة للشاشات الصغيرة (مثل الهواتف الذكية) أولاً، ثم التوسع تدريجياً وإضافة التنسيقات للشاشات الأكبر.<br>
+            • <strong>سبب التفضيل:</strong> يفرض على الفريق التركيز على المحتوى والوظائف الأكثر أهمية وجوهرية للمستخدم دون تشتيت، بالإضافة إلى كون غالبية زوار تطبيقات الويب الحديثة يستخدمون الهواتف المحمولة.
+        </div>
+    </div>
+
+    <!-- Essay 6 -->
+    <div class="q-card">
+        <div class="q-text">س6: ما الفائدة من استخدام إطار عمل (Framework) أو مكتبة في تطوير الواجهة الأمامية مقارنة بكتابة الكود التقليدي؟</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-6')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-6" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            • يُلغي الحاجة لكتابة كافة الأكواد والوظائف التكرارية من الصفر.<br>
+            • يوفر هيكلية جاهزة ومكونات برمجية قابلة لإعادة الاستخدام (Reusable Components).<br>
+            • يسرّع عملية التطوير، ويزيد كفاءة وجودة الكود وسهولة صيانته وتطويره بواسطة فرق العمل.
+        </div>
+    </div>
+
+    <!-- Essay 7 -->
+    <div class="q-card">
+        <div class="q-text">س7: قارن بين مكتبة React وإطار العمل Next.js من حيث الخصائص والأهداف الأساسية في تطوير الواجهة الأمامية.</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-7')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-7" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            • <strong>مكتبة React:</strong> هي مكتبة JavaScript مخصصة لبناء واجهات المستخدم وتعتمد على تقسيم الصفحة إلى مكونات مستقلة قابلة لإعادة الاستخدام.<br>
+            • <strong>إطار Next.js:</strong> هو إطار عمل كامل مبني على مكتبة React، يوفر ميزات متقدمة مثل التوجيه التلقائي (Routing)، وطرق عرض مختلفة للصفحات (Server-Side & Client-Side Rendering) لزيادة السرعة وتحسين SEO.
+        </div>
+    </div>
+
+    <!-- Essay 8 -->
+    <div class="q-card">
+        <div class="q-text">س8: وضح بمثال عملي كيف تتكامل التقنيات الثلاث (HTML, CSS, JS) في صفحة موقع مكتبة تعرض قائمة كتب وتتيح التصفية الفورية.</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-8')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-8" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            • <strong>HTML:</strong> تُنشئ بنية القائمة وعناوين الكتب وصورها ومربع نص البحث باستخدام عناصر هيكلية وداللية.<br>
+            • <strong>CSS:</strong> تُنسق مظهر غلاف الكتاب، والألوان، وترتب الكتب في شبكة منتظمة وتضمن تجاوبها مع أحجام الشاشات.<br>
+            • <strong>JavaScript:</strong> تستمع لحدث الكتابة في مربع البحث وتُصفي قائمة الكتب المعروضة فورياً وتحدث الشاشة بدون إعادة تحميل الصفحة.
+        </div>
+    </div>
+
+    <!-- Essay 9 -->
+    <div class="q-card">
+        <div class="q-text">س9: ناقش العبارة التالية: "صفحة الويب الحديثة هي تركيبة متكاملة؛ فبدون البنية تفقد المعنى، وبدون التنسيق تفقد الجاذبية، وبدون السلوك تفقد التفاعلية".</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-9')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-9" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            تعبر العبارة عن الترابط الوثيق بين تقنيات الواجهة الأمامية:<br>
+            • بدون HTML (البنية): لن يوجد محتوى أو عناصر أو معنى قابل للقراءة.<br>
+            • بدون CSS (التنسيق): سيكون المحتوى خاماً وغير منظم وبدون ألوان أو تجاوب بصري جذب للمستخدم.<br>
+            • بدون JavaScript (السلوك): ستكون الصفحة ثنائية الأبعاد وثابتة ولا تتفاعل حياً مع إجراءات المستخدم أو تحديثات البيانات.
+        </div>
+    </div>
+
+    <!-- Essay 10 -->
+    <div class="q-card">
+        <div class="q-text">س10: يريد موقع إخباري أن يعمل جيداً على الهواتف وأن تفهم محركات البحث بنية صفحاته؛ ما التوصية المناسبة في التصميم وHTML؟</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-10')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-10" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            • <strong>التوصية في التصميم:</strong> تطبيق **التصميم المتجاوب (Responsive Design)** ونهج **الأولوية للجوال (Mobile-First)** لتتعدل الخطوط والقوائم تلقائياً وفق حجم شاشة الهاتف.<br>
+            • <strong>التوصية في HTML:</strong> استخدام **HTML الداللية (Semantic HTML)** وتحديد الأقسام بوسوم مثل <code>&lt;header&gt;</code> و <code>&lt;main&gt;</code> و <code>&lt;article&gt;</code> ليفهم محرك البحث هيكل الخبر ومحتواه الرئيسي.
+        </div>
+    </div>
+
+    <!-- Essay 11 -->
+    <div class="q-card">
+        <div class="q-text">س11: ما الفارق الأساسي بين إطار العمل Vue ومكتبة React بحسب ما ورد في المنهج؟</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-11')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-11" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            • <strong>React:</strong> مكتبة ت专注于 بناء واجهات المستخدم عبر مكونات قابلة لإعادة الاستخدام.<br>
+            • <strong>Vue:</strong> إطار عمل يتميز ببنيته البسيطة ويتيح بناء تطبيقات الويب تدريجياً بدءاً من ميزات صغيرة وحتى التطبيقات الكاملة.
+        </div>
+    </div>
+
+    <!-- Essay 12 -->
+    <div class="q-card">
+        <div class="q-text">س12: في نشاط "فكر كمهندس": يريد نادٍ طالبي صفحة ويب تعرض الفعاليات، منسقة بألوان النادي، وتضم زراً لعدد المسجلين؛ وزّع هذه المهام على التقنيات الثلاث.</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-12')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-12" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            1. <strong>قائمة الفعاليات:</strong> تقع على عاتق <strong>HTML</strong> لأنها البنية الهيكلية التي تحمل محتوى الفعاليات والعناوين.<br>
+            2. <strong>ألوان النادي وتخطيط الصفحة:</strong> تقع على عاتق <strong>CSS</strong> لأنها المسؤولة عن تنسيق المظهر والألوان.<br>
+            3. <strong>عداد التسجيل الحي:</strong> يقع على عاتق <strong>JavaScript</strong> لأنه يُضيف السلوك والتفاعل الحي والتحديث عند الضغط.
+        </div>
+    </div>
+
+    <!-- Essay 13 -->
+    <div class="q-card">
+        <div class="q-text">س13: علل: يُفضل المطورون فصل ملفات HTML و CSS و JavaScript في تطوير المشاريع الحقيقية بدلاً من كتابتها في ملف واحد.</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-13')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-13" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            • <strong>فصل الاهتمامات (Separation of Concerns):</strong> يضمن سهولة الصيانة وقراءة الكود وتعديله.<br>
+            • <strong>إعادة الاستخدام والتطوير:</strong> يسمح بربط ملف التنسيق CSS أو الجافاسكريبت بعدة صفحات، وتوزيع العمل بين أعضاء الفريق بفاعلية.
+        </div>
+    </div>
+
+    <!-- Essay 14 -->
+    <div class="q-card">
+        <div class="q-text">س14: اشرح كيف يُعالج إطار العمل Next.js تحدي تحسين محركات البحث (SEO) في تطبيقات الويب المبنية بـ React.</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-14')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-14" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            يوفر Next.js خاصية العرض من جانب الخادم (Server-Side Rendering)، حيث يقوم بتجهيز صفحة HTML مكتملة البنية والمحتوى في الخادم وإرسالها للمتصفح جاهزة، مما يسمح لعناكب محركات البحث بقرائتها وفهرستها بسهولة.
+        </div>
+    </div>
+
+    <!-- Essay 15 -->
+    <div class="q-card">
+        <div class="q-text">س15: بصفتك مطور واجهات، صمم هيكلاً أولياً لصفحة تطبيق مدرسي متكامل يراعي البنية المعنوية والتجاوب والتفاعلية.</div>
+        <button class="btn-toggle" onclick="toggleAnswer('ess-15')">👁️ إظهار الإجابة النموذجية</button>
+        <div id="ess-15" class="answer-box essay-answer">
+            <strong>الإجابة النموذجية:</strong><br>
+            • <strong>البنية المعنوية (HTML):</strong> استخدام <code>&lt;header&gt;</code> لشعار المدرسة، و <code>&lt;nav&gt;</code> للقائمة، و <code>&lt;main&gt;</code> للأخبار والجدول الدراسي، و <code>&lt;footer&gt;</code> للتواصل.<br>
+            • <strong>التكيف والتجاوب (CSS):</strong> إعداد تخطيط متجاوب بنهج Mobile-First يغير ترتيب الأقسام على الهاتف لتصبح قائمة رأسية مرنة.<br>
+            • <strong>التفاعلية (JavaScript):</strong> إضافة زر لإظهار الإشعارات المدرسية فورياً والتحقق من صحة بيانات نموذج التواصل.
+        </div>
+    </div>
+
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div>جميع الحقوق محفوظة © <strong>منصة كودجي (CodeG) الرقمية</strong></div>
+    <div class="footer-line">
+        <span>إعداد: مهندس أندرو مجدي</span>
+        <span class="contact-badge">📞 01285529570</span>
+    </div>
+</footer>
+
+<script>
+    function toggleAnswer(id) {
+        const answerBox = document.getElementById(id);
+        const btn = answerBox.previousElementSibling;
+        
+        if (answerBox.style.display === "block") {
+            answerBox.style.display = "none";
+            btn.innerHTML = "👁️ إظهار الإجابة";
+        } else {
+            answerBox.style.display = "block";
+            btn.innerHTML = "🙈 إخفاء الإجابة";
+        }
+    }
+</script>
+
+</body>
+</html>
